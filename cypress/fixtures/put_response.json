@@ -1,0 +1,20 @@
+{
+  "message": "The product has been added to your order",
+  "order": {
+    "id": 1,
+    "products": [
+      {
+        "amount": 1,
+        "name": "Salad",
+        "price": 4.0
+      },
+      {
+        "amount": 1,
+        "name": "Ice Cream",
+        "price": 3.75
+      }
+    ],
+    "order_total": 7.75,
+    "finalized": false
+  }
+}
