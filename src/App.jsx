@@ -17,6 +17,22 @@ class App extends Component {
     this.setState({ authenticated: !this.state.authenticated })
   }
 
+  async confirmOrder() {
+    // let id = event.target.dataset.order_id
+    let headers = JSON.parse(localStorage.getItem('credentials')) // RED FLAG
+    let response = await axios.put(
+      `http://localhost:3000/api/orders/${this.state.order.id}`,
+      { status: 'confirmed' },
+      { headers: headers }
+    )
+    this.setState({
+      order: {},
+      viewOrderDetails: false,
+      orderItemsCount: null,
+      message: response.data.message
+    })
+  }
+
   async addToOrder(event) {
     let productID = parseInt(event.target.dataset.product)
     let headers = JSON.parse(localStorage.getItem('credentials')) // RED FLAG
@@ -42,7 +58,9 @@ class App extends Component {
   render() {
     return (
       <>
-        <Login toggleAuthenticatedState={() => this.toggleAuthenticatedState()} />
+        <Login
+          toggleAuthenticatedState={() => this.toggleAuthenticatedState()}
+        />
         <h1>Slowfood</h1>
         { this.state.message && <h2 data-cy="message">{this.state.message}</h2>}
         { this.state.orderItemsCount && <h3 data-cy="order-items-count">You have {this.state.orderItemsCount} item in your order</h3>}
@@ -53,8 +71,15 @@ class App extends Component {
             View order
             </button>
         }
-        { this.state.viewOrderDetails && <OrderDetails order={this.state.order} />}
-        <DisplayProductData addToOrder={(event) => this.addToOrder(event)} />
+        { this.state.viewOrderDetails &&
+          <OrderDetails
+            order={this.state.order}
+            confirmOrder={() => this.confirmOrder()}
+          />
+        }
+        <DisplayProductData
+          addToOrder={(event) => this.addToOrder(event)}
+        />
       </>
     )
   }

@@ -1,11 +1,11 @@
 import React from 'react'
 
-const OrderDetails = (props) => {
+const OrderDetails = ({order, confirmOrder}) => {
   return (
     <div data-cy="order-details">
       <h3>Your order</h3>
       <ul data-cy="order-items">
-        {props.order.items.map(item => {
+        {order.items.map(item => {
           return (
             <li key={item.id}>
               {item.name}
@@ -14,6 +14,12 @@ const OrderDetails = (props) => {
         })}
 
       </ul>
+      <button
+        // data-order_id = {order.id}
+        onClick={() => confirmOrder()}
+      >
+        Confirm
+        </button>
     </div>
   )
 }
