@@ -31,7 +31,7 @@ describe('Adding a product to an order', () => {
     cy.get('[data-cy="password-confirmation"]').type('password')
     cy.get('[data-cy="register"]').click()
   });
-  it('by clicking the Add to Order button on product 1', () => {
+  it('', () => {
     cy.get('[data-cy="product-1"]').within(()=>{
       cy.get('button').click()
     })
